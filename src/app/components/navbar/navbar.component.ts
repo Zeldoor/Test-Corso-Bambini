@@ -5,82 +5,8 @@ import { CommonModule } from '@angular/common';
     selector: 'app-navbar',
     standalone: true,
     imports: [CommonModule],
-    template: `
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-crema/95 backdrop-blur-sm shadow-md">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16 md:h-20">
-          <!-- Logo -->
-          <a href="#home" class="flex items-center gap-2 group" (click)="scrollTo($event, 'home')">
-            <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-arancione to-giallo 
-                        rounded-full flex items-center justify-center shadow-lg
-                        group-hover:scale-110 transition-transform duration-300">
-              <span class="text-white font-fredoka font-bold text-lg md:text-xl">CI</span>
-            </div>
-            <span class="hidden sm:block font-fredoka text-lg md:text-xl font-semibold text-gray-800">
-              Corso Illustrazione
-            </span>
-          </a>
-          
-          <!-- Desktop Navigation -->
-          <div class="hidden md:flex items-center gap-8">
-            @for (link of navLinks; track link.id) {
-              <a [href]="'#' + link.id" 
-                 (click)="scrollTo($event, link.id)"
-                 class="font-quicksand font-medium text-gray-700 hover:text-arancione 
-                        transition-colors duration-300 relative group">
-                {{ link.label }}
-                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-arancione 
-                             transition-all duration-300 group-hover:w-full"></span>
-              </a>
-            }
-          </div>
-          
-          <!-- Mobile Menu Button -->
-          <button (click)="toggleMobile()" 
-                  class="md:hidden p-2 rounded-lg hover:bg-verde-pastello transition-colors"
-                  [attr.aria-expanded]="mobileOpen()"
-                  aria-label="Toggle menu">
-            <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              @if (!mobileOpen()) {
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                      d="M4 6h16M4 12h16M4 18h16"/>
-              } @else {
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                      d="M6 18L18 6M6 6l12 12"/>
-              }
-            </svg>
-          </button>
-        </div>
-        
-        <!-- Mobile Menu -->
-        @if (mobileOpen()) {
-          <div class="md:hidden py-4 border-t border-verde-pastello animate-fade-in">
-            @for (link of navLinks; track link.id) {
-              <a [href]="'#' + link.id"
-                 (click)="scrollTo($event, link.id); toggleMobile()"
-                 class="block py-3 px-4 font-quicksand font-medium text-gray-700 
-                        hover:bg-verde-pastello hover:text-arancione rounded-lg 
-                        transition-colors duration-300">
-                {{ link.label }}
-              </a>
-            }
-          </div>
-        }
-      </div>
-    </nav>
-    
-    <!-- Spacer for fixed navbar -->
-    <div class="h-16 md:h-20"></div>
-  `,
-    styles: [`
-    @keyframes fade-in {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fade-in {
-      animation: fade-in 0.3s ease-out;
-    }
-  `]
+    templateUrl: './navbar.component.html',
+    styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
     mobileOpen = signal(false);

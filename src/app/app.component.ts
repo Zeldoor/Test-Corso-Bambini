@@ -19,26 +19,8 @@ import { FooterComponent } from './components/footer/footer.component';
     ContattoComponent,
     FooterComponent
   ],
-  template: `
-    <app-navbar />
-    <main>
-      <app-home />
-      <app-info />
-      <app-insegnanti />
-      <app-progetti />
-      <app-contatto />
-    </main>
-    <app-footer />
-  `,
-  styles: [`
-    :host {
-      display: block;
-      min-height: 100vh;
-    }
-    main {
-      display: block;
-    }
-  `]
+  templateUrl:'./app.component.html',
+  styleUrl:'./app.component.css'
 })
 export class AppComponent {
   title = 'Corso di Illustrazione per Bambini';

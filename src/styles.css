@@ -17,6 +17,16 @@ body {
   color: #333;
 }
 
+::selection {
+  background-color: #ffc265;
+  color: white;
+}
+
+::-moz-selection {
+  background-color: #ffc265;
+  color: white;
+}
+
 h1,
 h2,
 h3,

@@ -1,0 +1,93 @@
+<section id="progetti" class="py-16 md:py-24 bg-verde-pastello/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Title -->
+        <div class="text-center mb-12">
+            <h2 class="section-title">
+                <span class="text-arancione">🖼️</span> I Nostri Progetti
+            </h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Guarda cosa hanno creato i piccoli artisti nei corsi precedenti!
+            </p>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            @for (progetto of config.progetti(); track progetto.titolo; let i = $index) {
+            <div class="card group cursor-pointer p-0 overflow-hidden" (click)="openLightbox(progetto)">
+                <!-- Image -->
+                <div class="relative h-48 overflow-hidden">
+                    <!-- PLACEHOLDER: Sostituire con immagini reali dei progetti -->
+                    <img [src]="progetto.immagine" [alt]="progetto.titolo" class="w-full h-full object-cover transition-transform duration-500 
+                            group-hover:scale-110" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent 
+                            opacity-0 group-hover:opacity-100 transition-opacity duration-300
+                            flex items-end justify-center pb-4">
+                        <span class="text-white font-semibold flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                            </svg>
+                            Clicca per ingrandire
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="p-5">
+                    <h3 class="font-fredoka text-lg font-semibold text-gray-800 mb-2 
+                           group-hover:text-arancione transition-colors duration-300">
+                        {{ progetto.titolo }}
+                    </h3>
+                    <p class="text-gray-600 text-sm">
+                        {{ progetto.descrizione }}
+                    </p>
+                </div>
+            </div>
+            } @empty {
+            <!-- Loading state -->
+            @for (i of [1,2,3,4,5,6]; track i) {
+            <div class="card p-0 overflow-hidden animate-pulse">
+                <div class="h-48 bg-gray-200"></div>
+                <div class="p-5">
+                    <div class="h-6 bg-gray-200 rounded mb-2"></div>
+                    <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+                </div>
+            </div>
+            }
+            }
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    @if (selectedProject()) {
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 lightbox-overlay" (click)="closeLightbox()">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/80"></div>
+
+        <!-- Content -->
+        <div class="relative max-w-4xl w-full lightbox-content" (click)="$event.stopPropagation()">
+            <!-- Close button -->
+            <button (click)="closeLightbox()" class="absolute -top-12 right-0 text-white hover:text-arancione 
+                           transition-colors duration-300">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <!-- Image -->
+            <img [src]="selectedProject()!.immagine" [alt]="selectedProject()!.titolo"
+                class="w-full rounded-2xl shadow-2xl">
+
+            <!-- Caption -->
+            <div class="mt-4 text-center">
+                <h3 class="font-fredoka text-xl font-bold text-white mb-2">
+                    {{ selectedProject()!.titolo }}
+                </h3>
+                <p class="text-gray-300">
+                    {{ selectedProject()!.descrizione }}
+                </p>
+            </div>
+        </div>
+    </div>
+    }
+</section>
