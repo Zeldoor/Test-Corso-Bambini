@@ -9,16 +9,16 @@
   },
   "insegnanti": [
     {
-      "nome": "Sofia",
-      "ruolo": "Illustratrice diplomata in scenografia",
-      "bio": "Appassionata di arte e narrativa visiva, Sofia porta anni di esperienza nel mondo dell'illustrazione teatrale e dell'editoria per bambini. Il suo approccio creativo mira a far emergere l'unicità di ogni piccolo artista.",
-      "immagine": "https://placehold.co/300x300/C8E6C9/333333?text=Sofia"
-    },
-    {
       "nome": "Isabella",
       "ruolo": "Illustratrice laureata in Scienze della Formazione",
       "bio": "Specializzata in educazione creativa per bambini, Isabella unisce competenze pedagogiche e artistiche per creare un ambiente di apprendimento stimolante e accogliente dove ogni bambino può esprimere liberamente la propria fantasia.",
       "immagine": "https://placehold.co/300x300/FFD54F/333333?text=Isabella"
+    },
+    {
+      "nome": "Sofia",
+      "ruolo": "Illustratrice diplomata in scenografia",
+      "bio": "Appassionata di arte e narrativa visiva, Sofia porta anni di esperienza nel mondo dell'illustrazione teatrale e dell'editoria per bambini. Il suo approccio creativo mira a far emergere l'unicità di ogni piccolo artista.",
+      "immagine": "https://placehold.co/300x300/C8E6C9/333333?text=Sofia"
     }
   ],
   "progetti": [
