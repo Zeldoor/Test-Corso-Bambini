@@ -17,7 +17,12 @@ body {
   color: #333;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Fredoka', sans-serif;
 }
 
@@ -26,7 +31,7 @@ h1, h2, h3, h4, h5, h6 {
   .text-shadow {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   }
-  
+
   .blob-shape {
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   }
@@ -35,33 +40,25 @@ h1, h2, h3, h4, h5, h6 {
 /* Custom component styles */
 @layer components {
   .btn-primary {
-    @apply bg-arancione text-white font-semibold py-3 px-8 rounded-full 
-           transition-all duration-300 transform hover:scale-105 
-           hover:bg-arancione-chiaro hover:shadow-lg active:scale-95;
+    @apply bg-arancione text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-arancione-chiaro hover:shadow-lg active:scale-95;
   }
-  
+
   .btn-secondary {
-    @apply bg-verde-pastello text-gray-800 font-semibold py-3 px-8 rounded-full
-           transition-all duration-300 transform hover:scale-105 
-           hover:bg-verde-scuro hover:shadow-lg active:scale-95;
+    @apply bg-verde-pastello text-gray-800 font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-verde-scuro hover:shadow-lg active:scale-95;
   }
-  
+
   .card {
-    @apply bg-white rounded-3xl shadow-lg p-6 transition-all duration-300
-           hover:shadow-xl hover:-translate-y-1;
+    @apply bg-white rounded-3xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl;
   }
-  
+
   .section-title {
     @apply text-3xl md:text-4xl font-bold text-gray-800 mb-6 text-center;
   }
-  
+
   .input-field {
-    @apply w-full px-4 py-3 rounded-2xl border-2 border-verde-pastello
-           focus:border-arancione focus:outline-none focus:ring-2 
-           focus:ring-arancione/20 transition-all duration-300
-           bg-white font-quicksand;
+    @apply w-full px-4 py-3 rounded-2xl border-2 border-verde-pastello focus:border-arancione focus:outline-none focus:ring-2 focus:ring-arancione/20 transition-all duration-300 bg-white font-quicksand;
   }
-  
+
   .input-error {
     @apply border-red-400 focus:border-red-500 focus:ring-red-200;
   }
@@ -76,6 +73,7 @@ h1, h2, h3, h4, h5, h6 {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -90,6 +88,7 @@ h1, h2, h3, h4, h5, h6 {
     transform: scale(0.8);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;

@@ -1,13 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ContactService, ContactFormData } from '../../services/contact.service';
 
 @Component({
-    selector: 'app-contatto',
-    standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
-    template: `
+  selector: 'app-contatto',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  template: `
     <section id="contatto" class="py-16 md:py-24 bg-crema">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Title -->
@@ -83,47 +83,82 @@ import { ContactService, ContactFormData } from '../../services/contact.service'
                   }
                 </div>
                 
-                <!-- Nome Bambino -->
-                <div>
-                  <label for="nomeBambino" class="block font-semibold text-gray-700 mb-2">
-                    Nome Bambino/a <span class="text-red-500">*</span>
+                <!-- Bambini Section -->
+                <div class="md:col-span-2">
+                  <label class="block font-semibold text-gray-700 mb-2">
+                    Bambini <span class="text-red-500">*</span>
                   </label>
-                  <input type="text" 
-                         id="nomeBambino" 
-                         formControlName="nomeBambino"
-                         class="input-field"
-                         [class.input-error]="isFieldInvalid('nomeBambino')"
-                         placeholder="Es. Giulia">
-                  @if (isFieldInvalid('nomeBambino')) {
-                    <p class="mt-2 text-red-500 text-sm flex items-center gap-1">
-                      <span>⚠️</span> Il nome del bambino è obbligatorio
-                    </p>
-                  }
-                </div>
-                
-                <!-- Età Bambino -->
-                <div>
-                  <label for="etaBambino" class="block font-semibold text-gray-700 mb-2">
-                    Età <span class="text-red-500">*</span>
-                  </label>
-                  <input type="number" 
-                         id="etaBambino" 
-                         formControlName="etaBambino"
-                         class="input-field"
-                         [class.input-error]="isFieldInvalid('etaBambino')"
-                         placeholder="8-10 anni"
-                         min="8"
-                         max="10">
-                  @if (isFieldInvalid('etaBambino')) {
-                    <p class="mt-2 text-red-500 text-sm flex items-center gap-1">
-                      <span>⚠️</span> 
-                      @if (contactForm.get('etaBambino')?.errors?.['required']) {
-                        L'età è obbligatoria
-                      } @else {
-                        L'età deve essere compresa tra 8 e 10 anni
-                      }
-                    </p>
-                  }
+                  
+                  <div formArrayName="bambini" class="space-y-3">
+                    @for (bambino of bambiniArray.controls; track $index; let i = $index; let isFirst = $first) {
+                      <div class="flex items-start gap-3" [formGroupName]="i">
+                        <!-- Nome Bambino -->
+                        <div class="flex-1">
+                          @if (i === 0) {
+                            <span class="block text-sm text-gray-500 mb-1">Nome</span>
+                          }
+                          <input type="text" 
+                                 [id]="'nomeBambino_' + i"
+                                 formControlName="nome"
+                                 class="input-field"
+                                 [class.input-error]="isBambinoFieldInvalid(i, 'nome')"
+                                 placeholder="Es. Giulia">
+                          @if (isBambinoFieldInvalid(i, 'nome')) {
+                            <p class="mt-1 text-red-500 text-sm flex items-center gap-1">
+                              <span>⚠️</span> Nome obbligatorio
+                            </p>
+                          }
+                        </div>
+                        
+                        <!-- Età Bambino -->
+                        <div class="w-20">
+                          @if (i === 0) {
+                            <span class="block text-sm text-gray-500 mb-1">Età</span>
+                          }
+                          <input type="number" 
+                                 [id]="'etaBambino_' + i"
+                                 formControlName="eta"
+                                 class="input-field text-center"
+                                 [class.input-error]="isBambinoFieldInvalid(i, 'eta')"
+                                 placeholder="8"
+                                 min="8"
+                                 max="10">
+                          @if (isBambinoFieldInvalid(i, 'eta')) {
+                            <p class="mt-1 text-red-500 text-sm">
+                              <span>⚠️</span> 8-10
+                            </p>
+                          }
+                        </div>
+                        
+                        <!-- Pulsante Rimuovi o Aggiungi -->
+                        <div class="flex items-center" [class.mt-6]="i === 0">
+                          @if (isFirst) {
+                            <!-- Pulsante + -->
+                            <button type="button"
+                                    (click)="aggiungiBambino()"
+                                    class="w-12 h-12 flex items-center justify-center
+                                           bg-arancione text-white rounded-xl
+                                           hover:bg-arancione/80 transition-all duration-300
+                                           hover:scale-110 active:scale-95
+                                           shadow-md hover:shadow-lg p-1">
+                              <span class="text-xl font-bold">+</span>
+                            </button>
+                          } @else {
+                            <!-- Pulsante Rimuovi -->
+                            <button type="button"
+                                    (click)="rimuoviBambino(i)"
+                                    class="w-12 h-12 flex items-center justify-center 
+                                           bg-gray-200 text-gray-600 rounded-xl
+                                           hover:bg-red-100 hover:text-red-500 
+                                           transition-all duration-300
+                                           hover:scale-110 active:scale-95">
+                              <span class="text-xl font-bold">×</span>
+                            </button>
+                          }
+                        </div>
+                      </div>
+                    }
+                  </div>
                 </div>
                 
                 <!-- Messaggio -->
@@ -197,66 +232,116 @@ import { ContactService, ContactFormData } from '../../services/contact.service'
   `
 })
 export class ContattoComponent {
-    private fb = inject(FormBuilder);
-    private contactService = inject(ContactService);
+  private fb = inject(FormBuilder);
+  private contactService = inject(ContactService);
 
-    isSubmitting = signal(false);
-    submitStatus = signal<'success' | 'error' | null>(null);
-    errorMessage = signal('');
+  isSubmitting = signal(false);
+  submitStatus = signal<'success' | 'error' | null>(null);
+  errorMessage = signal('');
 
-    contactForm: FormGroup = this.fb.group({
-        nomeGenitore: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.email]],
-        telefono: ['', [Validators.required]],
-        nomeBambino: ['', [Validators.required]],
-        etaBambino: ['', [Validators.required, Validators.min(8), Validators.max(10)]],
-        messaggio: ['']
+  contactForm: FormGroup = this.fb.group({
+    nomeGenitore: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
+    telefono: ['', [Validators.required]],
+    bambini: this.fb.array([this.createBambinoGroup()]),
+    messaggio: ['']
+  });
+
+  // Getter per accedere al FormArray bambini
+  get bambiniArray(): FormArray {
+    return this.contactForm.get('bambini') as FormArray;
+  }
+
+  // Crea un nuovo gruppo per un bambino
+  private createBambinoGroup(): FormGroup {
+    return this.fb.group({
+      nome: ['', [Validators.required]],
+      eta: ['', [Validators.required, Validators.min(8), Validators.max(10)]]
+    });
+  }
+
+  // Aggiunge un nuovo bambino all'array
+  aggiungiBambino(): void {
+    this.bambiniArray.push(this.createBambinoGroup());
+  }
+
+  // Rimuove un bambino dall'array
+  rimuoviBambino(index: number): void {
+    if (this.bambiniArray.length > 1) {
+      this.bambiniArray.removeAt(index);
+    }
+  }
+
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.contactForm.get(fieldName);
+    return !!(field && field.invalid && (field.dirty || field.touched));
+  }
+
+  // Valida un campo specifico di un bambino nell'array
+  isBambinoFieldInvalid(index: number, fieldName: string): boolean {
+    const bambino = this.bambiniArray.at(index);
+    const field = bambino?.get(fieldName);
+    return !!(field && field.invalid && (field.dirty || field.touched));
+  }
+
+  // Resetta il form e reinizializza l'array bambini
+  private resetForm(): void {
+    this.contactForm.reset();
+    // Svuota l'array bambini e aggiunge un elemento vuoto
+    while (this.bambiniArray.length > 0) {
+      this.bambiniArray.removeAt(0);
+    }
+    this.bambiniArray.push(this.createBambinoGroup());
+  }
+
+  onSubmit() {
+    // Mark all fields as touched to show validation errors
+    Object.keys(this.contactForm.controls).forEach(key => {
+      const control = this.contactForm.get(key);
+      if (control instanceof FormArray) {
+        control.controls.forEach(group => {
+          if (group instanceof FormGroup) {
+            Object.keys(group.controls).forEach(k => group.get(k)?.markAsTouched());
+          }
+        });
+      } else {
+        control?.markAsTouched();
+      }
     });
 
-    isFieldInvalid(fieldName: string): boolean {
-        const field = this.contactForm.get(fieldName);
-        return !!(field && field.invalid && (field.dirty || field.touched));
+    if (this.contactForm.invalid) {
+      return;
     }
 
-    onSubmit() {
-        // Mark all fields as touched to show validation errors
-        Object.keys(this.contactForm.controls).forEach(key => {
-            this.contactForm.get(key)?.markAsTouched();
-        });
+    this.isSubmitting.set(true);
+    this.submitStatus.set(null);
 
-        if (this.contactForm.invalid) {
-            return;
-        }
+    const formData: ContactFormData = this.contactForm.value;
 
-        this.isSubmitting.set(true);
-        this.submitStatus.set(null);
+    // Log to console for development
+    console.log('📧 Form submitted with data:', formData);
 
-        const formData: ContactFormData = this.contactForm.value;
+    this.contactService.submitContactForm(formData).subscribe({
+      next: (response) => {
+        this.isSubmitting.set(false);
+        this.submitStatus.set('success');
+        this.resetForm();
+      },
+      error: (error) => {
+        this.isSubmitting.set(false);
+        this.submitStatus.set('error');
+        this.errorMessage.set(error.message || 'Si è verificato un errore. Riprova più tardi.');
 
-        // Log to console for development
-        console.log('📧 Form submitted with data:', formData);
+        // NOTE: In development, we simulate success after error for demo purposes
+        // since we're calling a placeholder endpoint
+        console.log('Note: API endpoint is a placeholder. In production, connect to a real email service.');
 
-        this.contactService.submitContactForm(formData).subscribe({
-            next: (response) => {
-                this.isSubmitting.set(false);
-                this.submitStatus.set('success');
-                this.contactForm.reset();
-            },
-            error: (error) => {
-                this.isSubmitting.set(false);
-                this.submitStatus.set('error');
-                this.errorMessage.set(error.message || 'Si è verificato un errore. Riprova più tardi.');
-
-                // NOTE: In development, we simulate success after error for demo purposes
-                // since we're calling a placeholder endpoint
-                console.log('Note: API endpoint is a placeholder. In production, connect to a real email service.');
-
-                // Simulate success for demo (remove in production)
-                setTimeout(() => {
-                    this.submitStatus.set('success');
-                    this.contactForm.reset();
-                }, 1500);
-            }
-        });
-    }
+        // Simulate success for demo (remove in production)
+        setTimeout(() => {
+          this.submitStatus.set('success');
+          this.resetForm();
+        }, 1500);
+      }
+    });
+  }
 }

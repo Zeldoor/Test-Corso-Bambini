@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConfigService } from '../../services/config.service';
 
@@ -6,73 +6,18 @@ import { ConfigService } from '../../services/config.service';
     selector: 'app-insegnanti',
     standalone: true,
     imports: [CommonModule],
-    template: `
-    <section id="insegnanti" class="py-16 md:py-24 bg-crema">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Section Title -->
-        <div class="text-center mb-12">
-          <h2 class="section-title">
-            <span class="text-arancione">👩‍🎨</span> Le Nostre Insegnanti
-          </h2>
-          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-            Professioniste appassionate pronte a guidare i vostri bambini in un viaggio creativo
-          </p>
-        </div>
-        
-        <!-- Instructors Grid -->
-        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          @for (insegnante of config.insegnanti(); track insegnante.nome) {
-            <div class="card group overflow-hidden">
-              <div class="flex flex-col items-center text-center">
-                <!-- Photo -->
-                <div class="relative mb-6">
-                  <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden 
-                              border-4 border-verde-pastello shadow-lg
-                              group-hover:border-arancione transition-colors duration-300">
-                    <!-- PLACEHOLDER: Sostituire con foto reali delle insegnanti -->
-                    <img [src]="insegnante.immagine" 
-                         [alt]="'Foto di ' + insegnante.nome"
-                         class="w-full h-full object-cover"
-                         loading="lazy">
-                  </div>
-                  <!-- Decorative badge -->
-                  <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 
-                              bg-arancione text-white px-4 py-1 rounded-full 
-                              text-sm font-semibold shadow-md">
-                    🎨 Artista
-                  </div>
-                </div>
-                
-                <!-- Info -->
-                <h3 class="font-fredoka text-2xl font-bold text-gray-800 mb-2">
-                  {{ insegnante.nome }}
-                </h3>
-                <p class="text-arancione font-semibold mb-4">
-                  {{ insegnante.ruolo }}
-                </p>
-                <p class="text-gray-600 leading-relaxed">
-                  {{ insegnante.bio }}
-                </p>
-              </div>
-            </div>
-          } @empty {
-            <!-- Loading state -->
-            @for (i of [1, 2]; track i) {
-              <div class="card animate-pulse">
-                <div class="flex flex-col items-center">
-                  <div class="w-32 h-32 bg-gray-200 rounded-full mb-6"></div>
-                  <div class="h-8 bg-gray-200 rounded w-32 mb-2"></div>
-                  <div class="h-4 bg-gray-200 rounded w-48 mb-4"></div>
-                  <div class="h-20 bg-gray-200 rounded w-full"></div>
-                </div>
-              </div>
-            }
-          }
-        </div>
-      </div>
-    </section>
-  `
+    templateUrl: './insegnanti.component.html',
+    styleUrl: './insegnanti.component.css'
 })
 export class InsegnantiComponent {
     config = inject(ConfigService);
+
+    constructor() {
+      effect(() => {
+        console.log('Insegnanti data:', this.config.insegnanti());
+        console.log('Is Loading:', this.config.isLoading());
+        console.log('Full config:', this.config.fullConfig());
+      });
+    }
 }
+

@@ -3,121 +3,20 @@ import { CommonModule } from '@angular/common';
 import { ConfigService } from '../../services/config.service';
 
 @Component({
-    selector: 'app-home',
-    standalone: true,
-    imports: [CommonModule],
-    template: `
-    <section id="home" class="min-h-[90vh] relative overflow-hidden bg-gradient-to-br from-crema via-crema to-verde-pastello/30">
-      <!-- Decorative shapes -->
-      <div class="absolute top-20 left-10 w-32 h-32 bg-giallo/40 rounded-full blur-3xl"></div>
-      <div class="absolute bottom-20 right-10 w-48 h-48 bg-arancione/30 rounded-full blur-3xl"></div>
-      <div class="absolute top-1/2 left-1/4 w-24 h-24 bg-verde-pastello/50 rounded-full blur-2xl"></div>
-      
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-        <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-          <!-- Text Content -->
-          <div class="order-2 md:order-1 text-center md:text-left">
-            @if (config.corso(); as corso) {
-              <div class="inline-block bg-arancione/20 text-arancione font-semibold 
-                          px-4 py-2 rounded-full mb-6 animate-bounce">
-                🎨 {{ corso.eta }}
-              </div>
-              
-              <h1 class="font-fredoka text-4xl sm:text-5xl lg:text-6xl font-bold 
-                         text-gray-800 mb-6 leading-tight">
-                {{ corso.titolo }}
-              </h1>
-              
-              <p class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
-                {{ corso.descrizione }}
-              </p>
-              
-              <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                <a href="#info" (click)="scrollTo($event, 'info')" class="btn-primary text-center">
-                  Scopri di più ✨
-                </a>
-                <a href="#contatto" (click)="scrollTo($event, 'contatto')" class="btn-secondary text-center">
-                  Iscriviti ora 📝
-                </a>
-              </div>
-            } @else {
-              <!-- Loading state -->
-              <div class="animate-pulse">
-                <div class="h-8 bg-gray-200 rounded-full w-32 mb-6"></div>
-                <div class="h-16 bg-gray-200 rounded-lg mb-6"></div>
-                <div class="h-24 bg-gray-200 rounded-lg mb-8"></div>
-                <div class="h-12 bg-gray-200 rounded-full w-48"></div>
-              </div>
-            }
-          </div>
-          
-          <!-- Illustration -->
-          <div class="order-1 md:order-2 flex justify-center">
-            <div class="relative">
-              <!-- Main illustration placeholder -->
-              <div class="w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 
-                          bg-gradient-to-br from-verde-pastello via-giallo to-arancione 
-                          rounded-blob shadow-2xl flex items-center justify-center
-                          animate-float">
-                <div class="text-center p-8">
-                  <span class="text-6xl sm:text-7xl lg:text-8xl">🎨</span>
-                  <p class="font-fredoka text-xl sm:text-2xl text-gray-800 mt-4 font-semibold">
-                    Crea con noi!
-                  </p>
-                </div>
-              </div>
-              
-              <!-- Floating elements -->
-              <div class="absolute -top-4 -right-4 w-16 h-16 bg-arancione rounded-full 
-                          flex items-center justify-center shadow-lg animate-bounce"
-                   style="animation-delay: 0.5s;">
-                <span class="text-2xl">✏️</span>
-              </div>
-              <div class="absolute -bottom-4 -left-4 w-14 h-14 bg-giallo rounded-full 
-                          flex items-center justify-center shadow-lg animate-bounce"
-                   style="animation-delay: 1s;">
-                <span class="text-xl">🖌️</span>
-              </div>
-              <div class="absolute top-1/2 -right-8 w-12 h-12 bg-verde-pastello rounded-full 
-                          flex items-center justify-center shadow-lg animate-bounce"
-                   style="animation-delay: 0.3s;">
-                <span class="text-lg">📖</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Wave decoration -->
-      <div class="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
-          <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" 
-                fill="#C8E6C9"/>
-        </svg>
-      </div>
-    </section>
-  `,
-    styles: [`
-    @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(2deg); }
-    }
-    .animate-float {
-      animation: float 6s ease-in-out infinite;
-    }
-    .rounded-blob {
-      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    }
-  `]
+  selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-    config = inject(ConfigService);
+  config = inject(ConfigService);
 
-    scrollTo(event: Event, elementId: string) {
-        event.preventDefault();
-        const element = document.getElementById(elementId);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+  scrollTo(event: Event, elementId: string) {
+    event.preventDefault();
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  }
 }
