@@ -1,7 +1,7 @@
 // Interface definitions for type safety
 export interface Corso {
     titolo: string;
-    welcome: string;
+    eta: string;
     descrizione: string;
     struttura: string;
     orario: string;
