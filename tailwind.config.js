@@ -8,12 +8,13 @@ module.exports = {
       colors: {
         'verde-pastello': '#C8E6C9',
         'verde-scuro': '#81C784',
-        'arancione': '#FF9800',
-        'arancione-chiaro': '#FFB74D',
+        'arancione': '#F2B0A3',
+        'arancione-chiaro': '#F2B0A3',
         'giallo': '#FFD54F',
         'giallo-chiaro': '#FFE082',
         'crema': '#FFF8E1',
         'crema-scuro': '#FFECB3',
+        'logo': '#CCD7F3',
       },
       fontFamily: {
         'fredoka': ['Fredoka', 'sans-serif'],

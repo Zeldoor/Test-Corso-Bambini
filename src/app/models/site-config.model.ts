@@ -1,6 +1,16 @@
 // Interface definitions for type safety
-export interface Corso {
+
+export interface Hero {
     titolo: string;
+    sottotitolo: string;
+    descrizione: string;
+}
+
+export interface Corso {
+    id: string;
+    titolo: string;
+    immagine: string;
+    colore: string;
     eta: string;
     descrizione: string;
     struttura: string;
@@ -25,10 +35,14 @@ export interface Contatti {
     telefono: string;
     email: string;
     indirizzo: string;
+    instagram: string;
+    facebook: string;
+    whatsapp: string;
 }
 
 export interface SiteConfig {
-    corso: Corso;
+    hero: Hero;
+    corsi: Corso[];
     insegnanti: Insegnante[];
     progetti: Progetto[];
     contatti: Contatti;

@@ -1,12 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MarkdownComponent } from 'ngx-markdown';
 import { ConfigService } from '../../services/config.service';
 import { Progetto } from '../../models/site-config.model';
 
 @Component({
     selector: 'app-progetti',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, MarkdownComponent],
     templateUrl: './progetti.component.html',
     styleUrl: './progetti.component.css'
 })

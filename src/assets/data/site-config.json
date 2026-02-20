@@ -1,23 +1,44 @@
 {
-  "corso": {
+  "hero": {
     "titolo": "Il Dodo Rosa",
-    "eta": "Benvenuto!",
-    "descrizione": "Realizzeremo un libro illustrato, rilegato e con un inserto pop-up. Inventeremo personaggi unici ed esploreremo insieme gli strumenti utili a narrare una piccola storia che possa stimolare la creatività.",
-    "struttura": "5 lezioni da 1.5h + incontro introduttivo gratuito di 1 ora",
-    "orario": "Sabato 15:30-17:00",
-    "sede": ""
+    "sottotitolo": "Benvenuto!",
+    "descrizione": "**Il Dodo Rosa** è uno spazio creativo dedicato a bambini e ragazzi, dove ogni idea trova voce e ogni personalità può **esprimersi** senza paura di sbagliare.<br><br>Organizziamo corsi e laboratori a **Roma** per stimolare creatività e socialità, creando un ambiente accogliente e inclusivo. Per noi crescere significa sperimentare, condividere e sentirsi **liberi** di essere sé stessi."
   },
+  "corsi": [
+    {
+      "id": "illustrazione-bambini",
+      "titolo": "Illustrazione per Bambini",
+      "immagine": "https://placehold.co/600x400/FFD54F/333333?text=Illustrazione",
+      "colore": "#FFD54F",
+      "eta": "8-10 anni",
+      "descrizione": "Un percorso creativo dove i bambini imparano a illustrare le proprie storie, sviluppando fantasia e capacità artistiche attraverso tecniche miste, acquerelli e collage.",
+      "struttura": "5 lezioni da 1.5h + incontro introduttivo gratuito di 1 ora",
+      "orario": "Sabato 15:30-17:00",
+      "sede": ""
+    },
+    {
+      "id": "storytelling-visivo",
+      "titolo": "Storytelling Visivo",
+      "immagine": "https://placehold.co/600x400/FF9800/FFFFFF?text=Storytelling",
+      "colore": "#FF9800",
+      "eta": "9-12 anni",
+      "descrizione": "Un viaggio nel mondo della narrazione visiva: i ragazzi imparano a raccontare storie attraverso immagini, creando le proprie graphic novel e fumetti.",
+      "struttura": "6 lezioni da 1.5h + incontro introduttivo gratuito di 1 ora",
+      "orario": "Sabato 10:00-11:30",
+      "sede": ""
+    }
+  ],
   "insegnanti": [
     {
       "nome": "Isabella",
-      "ruolo": "Illustratrice laureata in Scienze della Formazione",
-      "bio": "Specializzata in educazione creativa per bambini, Isabella unisce competenze pedagogiche e artistiche per creare un ambiente di apprendimento stimolante e accogliente dove ogni bambino può esprimere liberamente la propria fantasia.",
+      "ruolo": "**Illustratrice laureata in Scienze della Formazione**",
+      "bio": "Grazie ai miei studi unisco competenze pedagogiche e artistiche per costruire un ambiente di apprendimento stimolante e accogliente dove ogni bambino può esprimere liberamente la propria fantasia.",
       "immagine": "https://placehold.co/300x300/FFD54F/333333?text=Isabella"
     },
     {
       "nome": "Sofia",
-      "ruolo": "Illustratrice diplomata in scenografia",
-      "bio": "Appassionata di arte e narrativa visiva, Sofia porta anni di esperienza nel mondo dell'illustrazione teatrale e dell'editoria per bambini. Il suo approccio creativo mira a far emergere l'unicità di ogni piccolo artista.",
+      "ruolo": "**Illustratrice diplomata in scenografia**",
+      "bio": "Sono appassionata di arte e fumetti, il mio approccio creativo mira a far emergere l'unicità di ogni piccolo artista.",
       "immagine": "https://placehold.co/300x300/C8E6C9/333333?text=Sofia"
     }
   ],
@@ -28,34 +49,15 @@
       "descrizione": "Storia inventata dai bambini sul tema della natura e delle stagioni"
     },
     {
-      "immagine": "https://placehold.co/600x400/FF9800/FFFFFF?text=Pop-up+Estate+2024",
-      "titolo": "Pop-up creativo - Estate 2024",
-      "descrizione": "Personaggi fantastici realizzati con tecnica pop-up tridimensionale"
-    },
-    {
       "immagine": "https://placehold.co/600x400/FFD54F/333333?text=Personaggi+2024",
       "titolo": "Personaggi inventati - Primavera 2024",
       "descrizione": "Creazione di personaggi originali con storie uniche e caratteristiche speciali"
-    },
-    {
-      "immagine": "https://placehold.co/600x400/81C784/333333?text=Scenografie+2023",
-      "titolo": "Scenografie illustrate - Inverno 2023",
-      "descrizione": "Ambientazioni fantastiche per le nostre storie con tecniche miste"
-    },
-    {
-      "immagine": "https://placehold.co/600x400/FFB74D/333333?text=Pop-up+Collettivo",
-      "titolo": "Libro pop-up collettivo - Autunno 2023",
-      "descrizione": "Grande progetto di gruppo con tecnica mista e collaborazione creativa"
-    },
-    {
-      "immagine": "https://placehold.co/600x400/4FC3F7/333333?text=Tema+Mare+2023",
-      "titolo": "Illustrazioni a tema mare - Estate 2024",
-      "descrizione": "Esplorazione di colori e texture marine con acquerelli e collage"
     }
   ],
   "contatti": {
     "telefono": "+39 3929324221",
-    "email": "piccolestorielab@gmail.com",
-    "indirizzo": ""
+    "email": "ildodorosa@gmail.com",
+    "indirizzo": "",
+    "instagram": "https://www.instagram.com/ildodorosa/"
   }
 }

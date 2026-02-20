@@ -1,7 +1,7 @@
 import { Injectable, inject, computed, Signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { SiteConfig, Corso, Insegnante, Progetto, Contatti } from '../models/site-config.model';
+import { SiteConfig, Hero, Corso, Insegnante, Progetto, Contatti } from '../models/site-config.model';
 import { catchError, of } from 'rxjs';
 
 /**
@@ -27,7 +27,8 @@ export class ConfigService {
     hasLoaded: Signal<boolean> = computed(() => !!this.configSignal)
 
     // Computed signals for each section
-    corso = computed<Corso | null>(() => this.configSignal()?.corso ?? null);
+    hero = computed<Hero | null>(() => this.configSignal()?.hero ?? null);
+    corsi = computed<Corso[]>(() => this.configSignal()?.corsi ?? []);
     insegnanti = computed<Insegnante[]>(() => this.configSignal()?.insegnanti ?? []);
     progetti = computed<Progetto[]>(() => this.configSignal()?.progetti ?? []);
     contatti = computed<Contatti | null>(() => this.configSignal()?.contatti ?? null);
@@ -37,4 +38,11 @@ export class ConfigService {
 
     // Full config access if needed
     fullConfig = this.configSignal;
+
+    /**
+     * Get a specific corso by its ID
+     */
+    getCorsoById(id: string): Corso | undefined {
+        return this.corsi().find(c => c.id === id);
+    }
 }

@@ -5,6 +5,7 @@
 }
 @else{
 <app-navbar />
+@if (isHomePage()) {
 <main>
     @if(sections.home){
     <app-home />
@@ -22,5 +23,10 @@
     <app-contatto />
     }
 </main>
+} @else {
+<main>
+    <router-outlet />
+</main>
+}
 <app-footer />
 }

@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MarkdownComponent } from 'ngx-markdown';
 import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MarkdownComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

@@ -3,7 +3,7 @@
         <!-- Section Title -->
         <div class="text-center mb-12">
             <h2 class="section-title">
-                <span class="text-arancione">👩‍🎨</span> Le Nostre Insegnanti
+                <span class="text-arancione">👩‍🎨</span> Chi Siamo
             </h2>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">
                 Professioniste appassionate pronte a guidare i vostri bambini in un viaggio creativo
@@ -45,20 +45,20 @@
                         <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 
                             bg-arancione text-white px-4 py-1 rounded-full 
                             text-sm font-semibold shadow-md">
-                            🎨 Artista
+                            Artista
                         </div>
                     </div>
 
                     <!-- Info -->
                     <h3 class="font-fredoka text-2xl font-bold text-gray-800 mb-2">
-                        {{ insegnante.nome }}
+                        <markdown [data]="insegnante.nome" [inline]="true"></markdown>
                     </h3>
                     <p class="text-arancione font-semibold mb-4">
-                        {{ insegnante.ruolo }}
+                        <markdown [data]="insegnante.ruolo" [inline]="true"></markdown>
                     </p>
-                    <p class="text-gray-600 leading-relaxed">
-                        {{ insegnante.bio }}
-                    </p>
+                    <div class="text-gray-600 leading-relaxed">
+                        <markdown [data]="insegnante.bio"></markdown>
+                    </div>
                 </div>
             </div>
             }

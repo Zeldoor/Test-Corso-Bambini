@@ -4,12 +4,12 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 export interface ContactFormData {
-    nomeGenitore: string;
-    email: string;
-    telefono: string;
-    nomeBambino: string;
-    etaBambino: number;
-    messaggio: string;
+    nomeGenitore: string,
+    email: string,
+    telefono: string,
+    bambini: {nome: string, eta: string}[],
+    corsoSelezionato: string,
+    messaggio: string,
 }
 
 export interface ContactResponse {

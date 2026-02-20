@@ -47,24 +47,19 @@
                             }
                         </div>
 
-                        <!-- Telefono -->
+                        <!-- Telefono (opzionale) -->
                         <div>
                             <label for="telefono" class="block font-semibold text-gray-700 mb-2">
-                                Telefono <span class="text-red-500">*</span>
+                                Telefono
                             </label>
                             <input type="tel" id="telefono" formControlName="telefono" class="input-field"
-                                [class.input-error]="isFieldInvalid('telefono')" placeholder="+39 333 1234567">
-                            @if (isFieldInvalid('telefono')) {
-                            <p class="mt-2 text-red-500 text-sm flex items-center gap-1">
-                                <span>⚠️</span> Il telefono è obbligatorio
-                            </p>
-                            }
+                                placeholder="+39 333 1234567">
                         </div>
 
-                        <!-- Bambini Section -->
+                        <!-- Bambini Section (opzionale) -->
                         <div class="md:col-span-2">
                             <label class="block font-semibold text-gray-700 mb-2">
-                                Bambini <span class="text-red-500">*</span>
+                                Bambini
                             </label>
 
                             <div formArrayName="bambini" class="space-y-3">
@@ -77,13 +72,8 @@
                                         <span class="block text-sm text-gray-500 mb-1">Nome</span>
                                         }
                                         <input type="text" [id]="'nomeBambino_' + i" formControlName="nome"
-                                            class="input-field" [class.input-error]="isBambinoFieldInvalid(i, 'nome')"
+                                            class="input-field"
                                             [placeholder]="bambino.get('placeholder')?.value">
-                                        @if (isBambinoFieldInvalid(i, 'nome')) {
-                                        <p class="mt-1 text-red-500 text-sm flex items-center gap-1">
-                                            <span>⚠️</span> Nome obbligatorio
-                                        </p>
-                                        }
                                     </div>
 
                                     <!-- Età Bambino -->
@@ -93,13 +83,9 @@
                                         }
                                         <input type="number" [id]="'etaBambino_' + i" formControlName="eta"
                                             class="input-field text-center"
-                                            [class.input-error]="isBambinoFieldInvalid(i, 'eta')" placeholder="8"
-                                            min="8" max="10">
-                                        @if (isBambinoFieldInvalid(i, 'eta')) {
-                                        <p class="mt-1 text-red-500 text-sm">
-                                            <span>⚠️</span> 8-10
-                                        </p>
-                                        }
+                                            [placeholder]="bambino.get('placeholderEta')?.value" min="0" max="20" step="1"
+                                            (input)="clampEta(i)"
+                                            (blur)="sanitizeEta($event, i)">
                                     </div>
 
                                     <!-- Pulsante Rimuovi o Aggiungi -->
@@ -129,10 +115,52 @@
                             </div>
                         </div>
 
+                        <!-- Corso Select Custom -->
+                        <div class="md:col-span-2">
+                            <label class="block font-semibold text-gray-700 mb-2">
+                                Corso di interesse
+                            </label>
+                            <div class="relative">
+                                <button type="button" (click)="toggleDropdown()"
+                                    class="input-field w-full cursor-pointer flex items-center justify-between text-left"
+                                    [class.border-arancione]="dropdownOpen()"
+                                    [class.ring-2]="dropdownOpen()">
+                                    <span [class.text-gray-400]="!contactForm.get('corsoSelezionato')?.value || contactForm.get('corsoSelezionato')?.value === 'Info generiche'">
+                                        {{ contactForm.get('corsoSelezionato')?.value || 'Info generiche' }}
+                                    </span>
+                                    <svg class="w-5 h-5 text-gray-400 transition-transform duration-300"
+                                        [class.rotate-180]="dropdownOpen()"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+
+                                @if (dropdownOpen()) {
+                                <div class="absolute z-50 w-full mt-2 bg-white rounded-2xl shadow-xl border-2 border-verde-pastello overflow-hidden animate-dropdown">
+                                    <div class="dropdown-option"
+                                        [class.dropdown-option-active]="contactForm.get('corsoSelezionato')?.value === 'Info generiche'"
+                                        (click)="selectCorso('Info generiche')">
+                                        <span class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-sm">ℹ️</span>
+                                        <span>Info generiche</span>
+                                    </div>
+                                    @for (corso of config.corsi(); track corso.id) {
+                                    <div class="dropdown-option"
+                                        [class.dropdown-option-active]="contactForm.get('corsoSelezionato')?.value === corso.titolo"
+                                        (click)="selectCorso(corso.titolo)">
+                                        <span class="w-8 h-8 rounded-full flex items-center justify-center text-sm"
+                                            [style.background-color]="corso.colore + '30'">🎨</span>
+                                        <span>{{ corso.titolo }}</span>
+                                    </div>
+                                    }
+                                </div>
+                                }
+                            </div>
+                        </div>
+
                         <!-- Messaggio -->
                         <div class="md:col-span-2">
                             <label for="messaggio" class="block font-semibold text-gray-700 mb-2">
-                                Messaggio (opzionale)
+                                Messaggio
                             </label>
                             <textarea id="messaggio" formControlName="messaggio" rows="4"
                                 class="input-field resize-none"
@@ -155,7 +183,7 @@
                                 Invio in corso...
                             </span>
                             } @else {
-                            Invia Richiesta 🎨
+                            Invia Richiesta
                             }
                         </button>
                     </div>

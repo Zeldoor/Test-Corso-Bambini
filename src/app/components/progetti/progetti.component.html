@@ -11,9 +11,9 @@
         </div>
 
         <!-- Projects Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="flex flex-wrap justify-center gap-6">
             @for (progetto of config.progetti(); track progetto.titolo; let i = $index) {
-            <div class="card group cursor-pointer p-0 overflow-hidden" (click)="openLightbox(progetto)">
+            <div class="card group cursor-pointer p-0 overflow-hidden w-full sm:w-80 lg:w-96" (click)="openLightbox(progetto)">
                 <!-- Image -->
                 <div class="relative h-48 overflow-hidden">
                     <!-- PLACEHOLDER: Sostituire con immagini reali dei progetti -->
@@ -36,10 +36,10 @@
                 <div class="p-5">
                     <h3 class="font-fredoka text-lg font-semibold text-gray-800 mb-2 
                            group-hover:text-arancione transition-colors duration-300">
-                        {{ progetto.titolo }}
+                        <markdown [data]="progetto.titolo" [inline]="true"></markdown>
                     </h3>
                     <p class="text-gray-600 text-sm">
-                        {{ progetto.descrizione }}
+                        <markdown [data]="progetto.descrizione" [inline]="true"></markdown>
                     </p>
                 </div>
             </div>
@@ -81,10 +81,10 @@
             <!-- Caption -->
             <div class="mt-4 text-center">
                 <h3 class="font-fredoka text-xl font-bold text-white mb-2">
-                    {{ selectedProject()!.titolo }}
+                    <markdown [data]="selectedProject()!.titolo" [inline]="true"></markdown>
                 </h3>
                 <p class="text-gray-300">
-                    {{ selectedProject()!.descrizione }}
+                    <markdown [data]="selectedProject()!.descrizione" [inline]="true"></markdown>
                 </p>
             </div>
         </div>

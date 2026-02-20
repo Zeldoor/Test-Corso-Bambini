@@ -1,32 +1,28 @@
 <section id="home"
     class="min-h-[90vh] flex justify-center items-center relative overflow-hidden bg-gradient-to-br from-crema via-crema to-verde-pastello/30">
-    <!-- Decorative shapes -->
-    <div class="absolute top-20 left-10 w-32 h-32 bg-giallo/40 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-20 right-10 w-48 h-48 bg-arancione/30 rounded-full blur-3xl"></div>
-    <div class="absolute top-1/2 left-1/4 w-24 h-24 bg-verde-pastello/50 rounded-full blur-2xl "></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center ">
             <!-- Text Content -->
             <div class="order-2 md:order-1 text-center md:text-left">
-                @if (config.corso(); as corso) {
+                @if (config.hero(); as hero) {
                 <div class="inline-block bg-arancione/20 text-arancione font-semibold 
                           px-4 py-2 rounded-full mb-6 animate-bounce">
-                    {{ corso.eta }}
+                    <markdown [data]="hero.sottotitolo" [inline]="true"></markdown>
                 </div>
 
                 <h1 class="font-fredoka text-4xl sm:text-5xl lg:text-6xl font-bold 
                          text-gray-800 mb-6 leading-tight">
-                    {{ corso.titolo }}
+                    <markdown [data]="hero.titolo" [inline]="true"></markdown>
                 </h1>
 
-                <p class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
-                    {{ corso.descrizione }}
-                </p>
+                <div class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
+                    <markdown [data]="hero.descrizione"></markdown>
+                </div>
 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                    <a href="#info" (click)="scrollTo($event, 'info')" class="btn-primary text-center">
-                        Scopri di più ✨
+                    <a href="#corsi" (click)="scrollTo($event, 'corsi')" class="btn-primary text-center">
+                        Scopri i corsi ✨
                     </a>
                     <a href="#contatto" (click)="scrollTo($event, 'contatto')" class="btn-secondary text-center">
                         Iscriviti ora 📝
@@ -48,14 +44,11 @@
                 <div class="relative">
                     <!-- Main illustration placeholder -->
                     <div class="w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 
-                          bg-gradient-to-br from-verde-pastello via-giallo to-arancione 
+                          bg-logo
                           rounded-blob shadow-2xl flex items-center justify-center
                           animate-float">
                         <div class="text-center p-8">
-                            <span class="text-6xl sm:text-7xl lg:text-8xl">🎨</span>
-                            <p class="font-fredoka text-xl sm:text-2xl text-gray-800 mt-4 font-semibold">
-                                Crea con noi!
-                            </p>
+                            <img src="assets/logo/logo.png" class="rounded-full select-none">
                         </div>
                     </div>
 
@@ -79,7 +72,7 @@
 
     <!-- Wave decoration -->
     <div class="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+        <svg viewBox="0 -1 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
             <path
                 d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
                 fill="#C8E6C9" />
